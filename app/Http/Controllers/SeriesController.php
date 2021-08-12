@@ -2,17 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SerieFormRequest;
 use App\Serie;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class SeriesController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
-        $series = Serie::all();
+        $series = Serie::orderBy('name')->get();
+        $mensagem = $request->session()->get('mensagem');
 
-        return view('series.index', compact('series'));
+        return view('series.index', compact('series', 'mensagem'));
     }
 
     public function create(): View
@@ -20,14 +23,19 @@ class SeriesController extends Controller
         return view('series.create');
     }
 
-    public function store(Request $request)
+    public function store(SerieFormRequest $request): RedirectResponse
+    {   
+        $serie = Serie::create($request->all());
+        $request->session()->flash('mensagem', "A série {$serie->name} foi adicionada com sucesso!");
+
+        return redirect(route('series.index'));
+    }
+
+    public function destroy(Request $request): RedirectResponse
     {
-        $name = $request->name;
+        Serie::destroy($request->id);
+        $request->session()->flash('mensagem', "Série removida com sucesso!");
 
-        Serie::create([
-            'name' => $name
-        ]);
-
-        return redirect('/series');
+       return redirect(route('series.index'));
     }
 }
