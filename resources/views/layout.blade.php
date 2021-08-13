@@ -23,7 +23,7 @@
         .delete {
             width: 60px;
         }
-        .form-group {
+        .row {
             margin-bottom: 10px;
         }
 
