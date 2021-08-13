@@ -2,20 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\SerieFormRequest;
 use App\Models\Serie;
-use Illuminate\Contracts\View\View;
-use Illuminate\Http\RedirectResponse;
+use App\Models\Season;
+use App\Models\Episode;
 use Illuminate\Http\Request;
+use Illuminate\Contracts\View\View;
+use App\Services\CreateSerieService;
+use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\SerieFormRequest;
+use App\Services\DeleteSerieService;
 
 class SeriesController extends Controller
 {
     public function index(Request $request): View
     {
         $series = Serie::orderBy('name')->get();
-        $mensagem = $request->session()->get('mensagem');
+        $message = $request->session()->get('message');
 
-        return view('series.index', compact('series', 'mensagem'));
+        return view('series.index', compact('series', 'message'));
     }
 
     public function create(): View
@@ -23,18 +27,19 @@ class SeriesController extends Controller
         return view('series.create');
     }
 
-    public function store(SerieFormRequest $request): RedirectResponse
+    public function store(SerieFormRequest $request, CreateSerieService $createSerieService): RedirectResponse
     {   
-        $serie = Serie::create($request->all());
+        $serie = $createSerieService->create($request->name, $request->seasons_amount, $request->episodes_amount);
+
         $request->session()->flash('mensagem', "A série {$serie->name} foi adicionada com sucesso!");
 
         return redirect(route('series.index'));
     }
 
-    public function destroy(Request $request): RedirectResponse
+    public function destroy(Request $request, DeleteSerieService $deleteSerieService): RedirectResponse
     {
-        Serie::destroy($request->id);
-        $request->session()->flash('mensagem', "Série removida com sucesso!");
+        $deleteSerieService->delete($request->id);
+        $request->session()->flash('message', "Série removida com sucesso!");
 
        return redirect(route('series.index'));
     }

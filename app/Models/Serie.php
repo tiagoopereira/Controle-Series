@@ -8,9 +8,7 @@ use Illuminate\Database\Eloquent\Relations\Relation;
 class Serie extends Model
 {
     public $timestamps = false;
-    protected $fillable = [
-        'name'
-    ];
+    protected $fillable = ['name'];
 
     public function seasons(): Relation
     {

@@ -4,14 +4,6 @@
     Adicionar Série
 @endsection
 
-@section('link')
-    /series
-@endsection
-
-@section('link-text')
-    Voltar
-@endsection
-
 @section('content')
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -31,12 +23,12 @@
                 <input type="text" id="name" name="name" class="form-control">
             </div>
             <div class="col col-2">
-                <label for="seasons_number">Nº Temporadas</label>
-                <input type="number" id="seasons_number" name="seasons_number" class="form-control" />
+                <label for="seasons_amount">Nº Temporadas</label>
+                <input type="number" id="seasons_amount" name="seasons_amount" class="form-control" />
             </div>
             <div class="col col-2">
-                <label for="episodes_number">Eps por Temporada</label>
-                <input type="number" id="episodes_number" name="episodes_number" class="form-control" />
+                <label for="episodes_amount">Eps por Temporada</label>
+                <input type="number" id="episodes_amount" name="episodes_amount" class="form-control" />
             </div>
         </div>
         <button class="btn btn-dark">Adicionar</button>

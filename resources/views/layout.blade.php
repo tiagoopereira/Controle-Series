@@ -20,7 +20,7 @@
             width: 150px;
         }
 
-        .delete {
+        .btn-sm {
             width: 60px;
         }
         .row {
@@ -33,6 +33,10 @@
             justify-content: space-between
         }
 
+        .d-flex form {
+            margin-left: 5px;
+        }
+
         .series-empty {
             text-align: center;
             margin-top: 50px;
@@ -43,7 +47,7 @@
     <div class="container">
         <div class="align menu">
             <h1>@yield('header')</h1>
-            @yield('add-button')
+            @yield('action-button')
         </div>
         
         @yield('content')

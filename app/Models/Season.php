@@ -10,6 +10,9 @@ class Season extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+    protected $fillable = ['season_number'];
+
     public function serie(): Relation
     {
         return $this->belongsTo(Serie::class);
