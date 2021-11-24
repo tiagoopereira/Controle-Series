@@ -12,7 +12,8 @@
     <ul class="list-group">
         @foreach ($seasons as $season)
             <li class="list-group-item align">
-                Temporada {{ $season->season_number }}
+                <a href="{{ route('episodes.index', ['seasonId' => $season->id]) }}">Temporada {{ $season->season_number }}</a>
+                <span class="badge bg-dark"> 0/{{ $season->episodes->count() }}</span>
             </li>
         @endforeach
     </ul>

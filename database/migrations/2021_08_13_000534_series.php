@@ -15,7 +15,7 @@ class Series extends Migration
     {
         Schema::create('series', function (Blueprint $table) {
             $table->id();
-            $table->integer('name');
+            $table->string('name');
         });
     }
 

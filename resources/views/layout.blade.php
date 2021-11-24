@@ -21,8 +21,25 @@
         }
 
         .btn-sm {
-            width: 60px;
+            width: 40px;
         }
+
+        .input-group.edit {
+            width: 350px;
+        }
+
+        .form-control.edit {
+            border-right: none;
+            margin-top: 0px;
+            height: 40px;
+        }
+
+        .btn.check {
+            height: 40px;
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
         .row {
             margin-bottom: 10px;
         }
@@ -31,6 +48,10 @@
             display: flex;
             align-items: center;
             justify-content: space-between
+        }
+
+        .align.edit {
+            min-width: 420px;
         }
 
         .d-flex form {

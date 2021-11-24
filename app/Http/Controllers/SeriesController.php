@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Serie;
-use App\Models\Season;
-use App\Models\Episode;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
 use App\Services\CreateSerieService;
@@ -29,11 +27,25 @@ class SeriesController extends Controller
 
     public function store(SerieFormRequest $request, CreateSerieService $createSerieService): RedirectResponse
     {   
-        $serie = $createSerieService->create($request->name, $request->seasons_amount, $request->episodes_amount);
+        $serie = $createSerieService->create(
+            $request->name,
+            $request->seasons_amount,
+            $request->episodes_amount
+        );
 
         $request->session()->flash('mensagem', "A série {$serie->name} foi adicionada com sucesso!");
 
         return redirect(route('series.index'));
+    }
+
+    public function update(int $id, Request $request): void
+    {
+        $name = $request->name;
+
+        $serie = Serie::find($id);
+        $serie->name = $name;
+
+        $serie->save();
     }
 
     public function destroy(Request $request, DeleteSerieService $deleteSerieService): RedirectResponse

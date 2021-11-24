@@ -11,7 +11,7 @@ class Season extends Model
     use HasFactory;
 
     public $timestamps = false;
-    protected $fillable = ['season_number'];
+    protected $fillable = ['season_number', 'serie_id'];
 
     public function serie(): Relation
     {

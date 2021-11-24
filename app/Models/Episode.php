@@ -15,6 +15,6 @@ class Episode extends Model
 
     public function season(): Relation
     {
-        return $this->belongsTo(Seaso::class);
+        return $this->belongsTo(Season::class);
     }
 }
