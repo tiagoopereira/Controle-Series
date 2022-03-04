@@ -4,9 +4,11 @@
     Séries
 @endsection
 
-@section('action-button')
-    <a href="{{ route('series.create') }}" class="btn btn-dark">Adicionar</a>
-@endsection
+@auth
+    @section('action-button')
+        <a href="{{ route('series.create') }}" class="btn btn-dark">Adicionar</a>
+    @endsection
+@endauth
 
 @section('content')
     @if (!empty($message))
@@ -22,30 +24,36 @@
             <li class="list-group-item align">
                 <div class="align edit">
                     <span id="name-serie-{{ $serie->id }}">{{ $serie->name }}</span>
-                    <div class="input-group edit" hidden id="input-name-serie-{{ $serie->id }}">
-                        <input type="text" class="form-control edit" value="{{ $serie->name }}" />
-                        <div class="input-group-append">
-                            <button class="btn btn-primary btn-sm check" onclick="editarSerie({{ $serie->id }})">
-                                <i class="fas fa-check"></i>
-                            </button>
-                            @csrf
+                    @auth
+                        <div class="input-group edit" hidden id="input-name-serie-{{ $serie->id }}">
+                            <input type="text" class="form-control edit" value="{{ $serie->name }}" />
+                            <div class="input-group-append">
+                                <button class="btn btn-primary btn-sm check" onclick="editarSerie({{ $serie->id }})">
+                                    <i class="fas fa-check"></i>
+                                </button>
+                                @csrf
+                            </div>
                         </div>
-                    </div>
+                    @endauth
                 </div>
                 <div class="d-flex">
-                    <button class="btn btn-warning btn-sm" onclick="toggleInput({{ $serie->id }})" style="margin-right: 5px;">
-                        <i class="fas fa-edit"></i>
-                    </button>
+                    @auth
+                        <button class="btn btn-warning btn-sm" onclick="toggleInput({{ $serie->id }})" style="margin-right: 5px;">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                    @endauth
                     <a href="{{ route('seasons.index', ['id' => $serie->id]) }}" class="btn btn-info btn-sm">
                         <i class="fas fa-external-link-alt"></i>
                     </a>
-                    <form method="post" action="/series/{{ $serie->id }}" onsubmit="return confirm('Tem certeza que deseja excluir {{ $serie->name }}?')">
-                        @csrf
-                        @method('DELETE')
-                        <button class="btn btn-danger btn-sm">
-                            <i class="far fa-trash-alt"></i>
-                        </button>
-                    </form>
+                    @auth
+                        <form method="post" action="/series/{{ $serie->id }}" onsubmit="return confirm('Tem certeza que deseja excluir {{ $serie->name }}?')">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-danger btn-sm">
+                                <i class="far fa-trash-alt"></i>
+                            </button>
+                        </form>
+                    @endauth
                 </div>
             </li>
         @endforeach

@@ -62,9 +62,31 @@
             text-align: center;
             margin-top: 50px;
         }
+
+        .navbar {
+            padding: 10px;
+        }
+
+        .navbar .logiin {
+            margin-right: 5px;
+            text-decoration: none;
+        }
+
+        .navbar .login:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-between">
+        <a href="{{ route('series.index') }}" class="navbar-brand">Home</a>
+        @auth
+            <a href="{{ route('logout') }}" class="text-danger login">Sair</a>
+        @endauth
+        @guest
+            <a href="{{ route('login.index') }}" class="login">Entrar</a>
+        @endguest
+    </nav>
     <div class="container">
         <div class="align menu">
             <h1>@yield('header')</h1>

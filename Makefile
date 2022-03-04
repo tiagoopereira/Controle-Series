@@ -5,7 +5,7 @@ up:
 down:
 	docker-compose down
 composer:
-	composer install
+	composer install --ignore-platform-reqs
 sqlite:
 	rm -rf database/database.sqlite
 	touch database/database.sqlite
