@@ -10,9 +10,9 @@ sqlite:
 	rm -rf database/database.sqlite
 	touch database/database.sqlite
 migrations:
-	docker exec -it php php artisan migrate:fresh --seed
+	docker exec -it controle_series php artisan migrate:fresh --seed
 encryption_key:
-	docker exec -it php php artisan key:generate
+	docker exec -it controle_series php artisan key:generate
 test:
-	docker exec -it php php vendor/bin/phpunit
+	docker exec -it controle_series php vendor/bin/phpunit
 run: up composer env sqlite migrations encryption_key test
